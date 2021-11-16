@@ -39,6 +39,8 @@ namespace bitva
                         vstupUdajov(finale, pocetS);
                         tabulka(finale);
                         pavuk(finale);
+                        Console.Write("Stlacte klavesu pre pokracovanie.");
+                        Console.ReadKey();
                         for (int i = 0; i < 1; i++)
                         {
                             ratac++;
@@ -60,6 +62,8 @@ namespace bitva
                         {
                             zadUdaje.Add(new SuperHrdina(semifinale[i].meno, semifinale[i].hp, semifinale[i].dmg, semifinale[i].def));
                         }
+                        Console.Write("Stlacte klavesu pre pokracovanie.");
+                        Console.ReadKey();
                         for (int i = 0; i < 2; i++)
                         {
                             ratac++;
@@ -99,6 +103,8 @@ namespace bitva
                         {
                             zadUdaje.Add(new SuperHrdina(stvrtfinale[i].meno, stvrtfinale[i].hp, stvrtfinale[i].dmg, stvrtfinale[i].def));
                         }
+                        Console.Write("Stlacte klavesu pre pokracovanie.");
+                        Console.ReadKey();
                         for (int i = 0; i < 4; i++)
                         {
                             ratac++;
@@ -155,6 +161,8 @@ namespace bitva
                         {
                             zadUdaje.Add(new SuperHrdina(osemfinale[i].meno, osemfinale[i].hp, osemfinale[i].dmg, osemfinale[i].def));
                         }
+                        Console.Write("Stlacte klavesu pre pokracovanie.");
+                        Console.ReadKey();
                         for (int i = 0; i < 8; i++)
                         {
                             ratac++;
@@ -297,11 +305,12 @@ namespace bitva
                 }
             }
         }
-        static double utokobrana(double dmg, double def, double hp)//metoda na vypocet udeleneho poskodenia == prerobit - o 10 mensi dmg ako def = prakticky ziadne poskodenie
+        static double utokobrana(double dmg, double def, double hp)//metoda na vypocet udeleneho poskodenia
         {
-            dmg = dmg + (dmg * r.Next(-25, 26) / 100);
-            def = def + (def * r.Next(-25, 26) / 100);
-            dmgc = dmg - (0.75 * def);
+            dmg = dmg * (100+r.Next(-25, 26))/100;
+            def = def * (100+r.Next(-25, 26))/100;
+            def = (def * 0.875) / 100;
+            dmgc = dmg - dmg * def;
             dmgc = Math.Round(dmgc, 3);
             if (dmgc < 0)
                 dmgc = 0;
@@ -362,7 +371,7 @@ namespace bitva
             }
             List.Add(new SuperHrdina(meno, hp, dmg, def));
         }
-        static void fixudaje(int i, List<SuperHrdina> List, int fix)//metoda pre rychle vyplnenie udajov
+        static void fixudaje(int i, List<SuperHrdina> List, double fix)//metoda pre rychle vyplnenie udajov
         {
             Console.WriteLine("Zadajte meno " + i + ". superhrdinu: ");
             string meno = Console.ReadLine();
@@ -401,7 +410,7 @@ namespace bitva
                             Console.Clear();
                             if (volba2 == "10" || volba2 == "20" || volba2 == "30" || volba2 == "40" || volba2 == "50" || volba2 == "60" || volba2 == "70" || volba2 == "80" || volba2 == "90" || volba2 == "100")
                             {
-                                fixudaje(a, list, int.Parse(volba2));
+                                fixudaje(a, list, double.Parse(volba2));
                                 Console.Clear();
                                 break;
                             }
