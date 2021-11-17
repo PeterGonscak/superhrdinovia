@@ -9,16 +9,16 @@ namespace bitva
         static Random r = new Random();
         static List<SuperHrdina> osemfinale = new List<SuperHrdina>();
         static List<SuperHrdina> stvrtfinale = new List<SuperHrdina>();
-        static List<SuperHrdina> semifinale = new List<SuperHrdina>();              //staticke premenne a listy
+        static List<SuperHrdina> semifinale = new List<SuperHrdina>();
         static List<SuperHrdina> finale = new List<SuperHrdina>();
         static List<SuperHrdina> zadUdaje = new List<SuperHrdina>();
         static void Main(string[] args)
         {
-            int pocetS = 0;
+            int pocetS;
             Console.Write("Zadajte pocet superhrdinov [2,4,8,16]:");
             while (true)
             {
-                bool b = int.TryParse(Console.ReadLine(), out pocetS);
+                int.TryParse(Console.ReadLine(), out pocetS);
                 if (pocetS == 2 || pocetS == 4 || pocetS == 8 || pocetS == 16)
                 {
                     Console.Clear();
@@ -36,79 +36,79 @@ namespace bitva
                 case 2:
                     {
                         ratac = 0;
-                        vstupUdajov(finale, pocetS);
-                        tabulka(finale);
-                        pavuk(finale);
-                        boje(finale, ratac);
+                        VstupUdajov(finale, pocetS);
+                        Tabulka(finale);
+                        Pavuk(finale);
+                        Boje(finale, ratac);
                         Console.WriteLine("Koniec finale.");
-                        efektneCarky();
+                        EfektneCarky();
                         break;
                     }
                 case 4:
                     {
                         ratac = 0;
-                        vstupUdajov(semifinale, pocetS);
-                        tabulka(semifinale);
-                        pavuk(semifinale);
-                        boje(semifinale, ratac);
+                        VstupUdajov(semifinale, pocetS);
+                        Tabulka(semifinale);
+                        Pavuk(semifinale);
+                        Boje(semifinale, ratac);
                         Console.WriteLine("Koniec semifinale.");
-                        efektneCarky();
-                        pavuk(finale);
+                        EfektneCarky();
+                        Pavuk(finale);
                         ratac = 0;
-                        boje(finale, ratac);
+                        Boje(finale, ratac);
                         Console.WriteLine("Koniec finale.");
-                        efektneCarky();
+                        EfektneCarky();
                         break;
                     }
                 case 8:
                     {
                         ratac = 0;
-                        vstupUdajov(stvrtfinale, pocetS);
-                        tabulka(stvrtfinale);
-                        pavuk(stvrtfinale);
-                        boje(stvrtfinale, ratac);
+                        VstupUdajov(stvrtfinale, pocetS);
+                        Tabulka(stvrtfinale);
+                        Pavuk(stvrtfinale);
+                        Boje(stvrtfinale, ratac);
                         Console.WriteLine("Koniec stvrtfinale.");
-                        efektneCarky();
-                        pavuk(semifinale);
+                        EfektneCarky();
+                        Pavuk(semifinale);
                         ratac = 0;
-                        boje(semifinale, ratac);
+                        Boje(semifinale, ratac);
                         Console.WriteLine("Koniec semifinale.");
-                        efektneCarky();
-                        pavuk(finale);
+                        EfektneCarky();
+                        Pavuk(finale);
                         ratac = 0;
-                        boje(finale, ratac); 
+                        Boje(finale, ratac); 
                         Console.WriteLine("Koniec finale.");
-                        efektneCarky();
+                        EfektneCarky();
                         break;
                     }
                 case 16:
                     {
                         ratac = 0;
-                        vstupUdajov(osemfinale, pocetS);
-                        tabulka(osemfinale);
-                        pavuk(osemfinale);
-                        boje(osemfinale, ratac);
+                        VstupUdajov(osemfinale, pocetS);
+                        Tabulka(osemfinale);
+                        Pavuk(osemfinale);
+                        Boje(osemfinale, ratac);
                         Console.WriteLine("Koniec osemfinale.");
-                        efektneCarky();
-                        pavuk(stvrtfinale);
+                        EfektneCarky();
+                        Pavuk(stvrtfinale);
                         ratac = 0;
-                        boje(stvrtfinale, ratac);
+                        Boje(stvrtfinale, ratac);
                         Console.WriteLine("koniec stvrtfinale.");
-                        efektneCarky();
-                        pavuk(semifinale);
+                        EfektneCarky();
+                        Pavuk(semifinale);
                         ratac = 0;
-                        boje(semifinale, ratac);
+                        Boje(semifinale, ratac);
                         Console.WriteLine("Koniec semifinale.");
-                        efektneCarky();
-                        pavuk(finale);
-                        boje(finale, ratac);
+                        EfektneCarky();
+                        Pavuk(finale);
+                        Boje(finale, ratac);
                         Console.WriteLine("Koniec finale.");
-                        efektneCarky();
+                        EfektneCarky();
                         break;
                     }
             }
         }
-        static void boje(List<SuperHrdina> list, int ratac)
+        static void Boje(List<SuperHrdina> list, int ratac)
         {
             for (int i = 0; i < list.Count; i++)
             {
@@ -120,99 +120,35 @@ namespace bitva
             for (int i = 0; i < (list.Count/2); i++)
             {
                 ratac++;
-                efektneCarky();
+                EfektneCarky();
                 Console.WriteLine(ratac + ". suboj");
-                efektneCarky();
-                suboj(i, list, zadUdaje);
+                EfektneCarky();
+                Suboj(i, list, zadUdaje);
             }
             zadUdaje.Clear();
         }
-        static void suboj(int i, List<SuperHrdina> ListA, List<SuperHrdina> ListB)//metoda na suboje - mozno skratit ?
+        static void Suboj(int i, List<SuperHrdina> ListA, List<SuperHrdina> ListB)//metoda na suboje - mozno skratit ?
         {
             while (true)
             {
                 int poradie = r.Next(2);
                 if (poradie == 0)
                 {
-                    ListA[(i * 2) + 1].hp = utokobrana(ListA[i * 2].dmg, ListA[(i * 2) + 1].def, ListA[(i * 2) + 1].hp);
-                    Console.WriteLine("Prvy udiera " + ListA[i * 2].meno + " a ubera " + ListA[(i * 2) + 1].meno + " " + dmgc + " dmg");
-                    Console.WriteLine(ListA[(i * 2) + 1].meno + " ostava " + Math.Round(ListA[(i * 2) + 1].hp, 3) + " hp");
-                    if (ListA[(i * 2) + 1].hp <= 0)
-                    {
-                        efektneCarky();
-                        Console.WriteLine("Vyhrava " + ListA[(i * 2)].meno);
-                        efektneCarky();
-                        if (ListA == osemfinale)
-                            stvrtfinale.Add(new SuperHrdina(ListB[(i * 2)].meno, ListB[(i * 2)].hp, ListB[(i * 2)].dmg, ListB[(i * 2)].def));
-                        if (ListA == stvrtfinale)
-                            semifinale.Add(new SuperHrdina(ListB[(i * 2)].meno, ListB[(i * 2)].hp, ListB[(i * 2)].dmg, ListB[(i * 2)].def));
-                        if (ListA == semifinale)
-                            finale.Add(new SuperHrdina(ListB[(i * 2)].meno, ListB[(i * 2)].hp, ListB[(i * 2)].dmg, ListB[(i * 2)].def));
-                        if (ListA == finale)
-                            Console.WriteLine("Celkovym vitazom sa stava: " + ListA[(i * 2)].meno);
+                    if (NaplnacListov(i, ListA, ListB, 1, 0))
                         break;
-                    }
-                    ListA[i * 2].hp = utokobrana(ListA[(i * 2) + 1].dmg, ListA[i * 2].def, ListA[i * 2].hp);
-                    Console.WriteLine("Spet udiera " + ListA[(i * 2) + 1].meno + " a ubera " + ListA[i * 2].meno + " " + dmgc + " dmg");
-                    Console.WriteLine(ListA[i * 2].meno + " ostava " + Math.Round(ListA[i * 2].hp, 3) + " hp");
-                    if (ListA[i * 2].hp <= 0)
-                    {
-                        efektneCarky();
-                        Console.WriteLine("Vyhrava " + ListA[(i * 2) + 1].meno);
-                        efektneCarky();
-                        if (ListA == osemfinale)
-                            stvrtfinale.Add(new SuperHrdina(ListB[(i * 2) + 1].meno, ListB[(i * 2) + 1].hp, ListB[(i * 2) + 1].dmg, ListB[(i * 2) + 1].def));
-                        if (ListA == stvrtfinale)
-                            semifinale.Add(new SuperHrdina(ListB[(i * 2) + 1].meno, ListB[(i * 2) + 1].hp, ListB[(i * 2) + 1].dmg, ListB[(i * 2) + 1].def));
-                        if (ListA == semifinale)
-                            finale.Add(new SuperHrdina(ListB[(i * 2) + 1].meno, ListB[(i * 2) + 1].hp, ListB[(i * 2) + 1].dmg, ListB[(i * 2) + 1].def));
-                        if (ListA == finale)
-                            Console.WriteLine("Celkovym vitazom sa stava: " + ListA[(i * 2) + 1].meno);
+                    if (NaplnacListov(i, ListA, ListB, 0, 1))
                         break;
-                    }
                 }
                 else
                 {
-                    ListA[i * 2].hp = utokobrana(ListA[(i * 2) + 1].dmg, ListA[i * 2].def, ListA[i * 2].hp);
-                    Console.WriteLine("Prvy udiera " + ListA[(i * 2) + 1].meno + " a ubera " + ListA[i * 2].meno + " " + dmgc + " dmg");
-                    Console.WriteLine(ListA[i * 2].meno + " ostava " + Math.Round(ListA[i * 2].hp, 3) + " hp");
-                    if (ListA[i * 2].hp <= 0)
-                    {
-                        efektneCarky();
-                        Console.WriteLine("Vyhrava " + ListA[(i * 2) + 1].meno);
-                        efektneCarky();
-                        if (ListA == osemfinale)
-                            stvrtfinale.Add(new SuperHrdina(ListB[(i * 2) + 1].meno, ListB[(i * 2) + 1].hp, ListB[(i * 2) + 1].dmg, ListB[(i * 2) + 1].def));
-                        if (ListA == stvrtfinale)
-                            semifinale.Add(new SuperHrdina(ListB[(i * 2) + 1].meno, ListB[(i * 2) + 1].hp, ListB[(i * 2) + 1].dmg, ListB[(i * 2) + 1].def));
-                        if (ListA == semifinale)
-                            finale.Add(new SuperHrdina(ListB[(i * 2) + 1].meno, ListB[(i * 2) + 1].hp, ListB[(i * 2) + 1].dmg, ListB[(i * 2) + 1].def));
-                        if (ListA == finale)
-                            Console.WriteLine("Celkovym vitazom sa stava: " + ListA[(i * 2) + 1].meno);
+                    if (NaplnacListov(i, ListA, ListB, 0, 1))
                         break;
-                    }
-                    ListA[(i * 2) + 1].hp = utokobrana(ListA[i * 2].dmg, ListA[(i * 2) + 1].def, ListA[(i * 2) + 1].hp);
-                    Console.WriteLine("Spet udiera " + ListA[i * 2].meno + " a ubera " + ListA[(i * 2) + 1].meno + " " + dmgc + " dmg");
-                    Console.WriteLine(ListA[(i * 2) + 1].meno + " ostava " + Math.Round(ListA[(i * 2) + 1].hp, 3) + " hp");
-                    if (ListA[(i * 2) + 1].hp <= 0)
-                    {
-                        efektneCarky();
-                        Console.WriteLine("Vyhrava " + ListA[(i * 2)].meno);
-                        efektneCarky();
-                        if (ListA == osemfinale)
-                            stvrtfinale.Add(new SuperHrdina(ListB[(i * 2)].meno, ListB[(i * 2)].hp, ListB[(i * 2)].dmg, ListB[(i * 2)].def));
-                        if (ListA == stvrtfinale)
-                            semifinale.Add(new SuperHrdina(ListB[(i * 2)].meno, ListB[(i * 2)].hp, ListB[(i * 2)].dmg, ListB[(i * 2)].def));
-                        if (ListA == semifinale)
-                            finale.Add(new SuperHrdina(ListB[(i * 2)].meno, ListB[(i * 2)].hp, ListB[(i * 2)].dmg, ListB[(i * 2)].def));
-                        if (ListA == finale)
-                            Console.WriteLine("Celkovym vitazom sa stava: " + ListA[(i * 2)].meno);
+                    if (NaplnacListov(i, ListA, ListB, 1, 0))
                         break;
-                    }
                 }
             }
         }
-        static double utokobrana(double dmg, double def, double hp)//metoda na vypocet udeleneho poskodenia
+        static double Utokobrana(double dmg, double def, double hp)//metoda na vypocet udeleneho poskodenia
         {
             dmg = dmg * (100+r.Next(-25, 26))/100;
             def = def * (100+r.Next(-25, 26))/100;
@@ -223,7 +159,7 @@ namespace bitva
                 dmgc = 0;
             return hp - dmgc;
         }
-        static void udaje(int i, List<SuperHrdina> List)//metoda na zber udajov o jednotlivych superhrdinov
+        static void Udaje(int i, List<SuperHrdina> List)//metoda na zber udajov o jednotlivych superhrdinov
         {
             Console.WriteLine("Zadajte meno " + i + ". superhrdinu: ");
             string meno = Console.ReadLine();
@@ -234,7 +170,7 @@ namespace bitva
             Console.WriteLine("Zadajte hp " + i + ". superhrdinu[1 - 1000]: ");
             while (true)
             {
-                bool b = int.TryParse(Console.ReadLine(), out hp);
+                int.TryParse(Console.ReadLine(), out hp);
                 if (hp >= 1 && hp <= 1000)
                 {
                     Console.Clear();
@@ -278,14 +214,14 @@ namespace bitva
             }
             List.Add(new SuperHrdina(meno, hp, dmg, def));
         }
-        static void fixudaje(int i, List<SuperHrdina> List, double fix)//metoda pre rychle vyplnenie udajov
+        static void Fixudaje(int i, List<SuperHrdina> List, double fix)//metoda pre rychle vyplnenie udajov
         {
             Console.WriteLine("Zadajte meno " + i + ". superhrdinu: ");
             string meno = Console.ReadLine();
             Console.Clear();
             List.Add(new SuperHrdina(meno, fix * 10, fix, fix));
         }
-        static void tabulka(List<SuperHrdina> List)//metoda na vytvorenie uvodnej tabulky a pavuka + zamiesanie (shuffle) uvodneho listu
+        static void Tabulka(List<SuperHrdina> List)//metoda na vytvorenie uvodnej tabulky a pavuka + zamiesanie (shuffle) uvodneho listu
         {
             Console.WriteLine("Tabulka");
             foreach (var SuperHrdina in List)
@@ -298,7 +234,7 @@ namespace bitva
             }
             List.Shuffle();
         }
-        static void vstupUdajov(List<SuperHrdina> list, int pocetS)//metoda na ziadanie rychleho/manualneho zadavania udajov
+        static void VstupUdajov(List<SuperHrdina> list, int pocetS)//metoda na ziadanie rychleho/manualneho zadavania udajov
         {
             while (true)
             {
@@ -313,11 +249,11 @@ namespace bitva
                         while (true)
                         {
                             Console.WriteLine("Zadajte cislo fix udajov[10,20,30,40,50,60,70,80,90,100]");
-                            string volba2 = Console.ReadLine();
+                            double.TryParse(Console.ReadLine(), out double volba2);
                             Console.Clear();
-                            if (volba2 == "10" || volba2 == "20" || volba2 == "30" || volba2 == "40" || volba2 == "50" || volba2 == "60" || volba2 == "70" || volba2 == "80" || volba2 == "90" || volba2 == "100")
+                            if ((volba2 >=10) && (volba2<=100) && (volba2 % 10 == 0))
                             {
-                                fixudaje(a, list, double.Parse(volba2));
+                                Fixudaje(a, list, volba2);
                                 Console.Clear();
                                 break;
                             }
@@ -329,7 +265,7 @@ namespace bitva
                 {
                     for (int a = 1; a <= pocetS; a++)
                     {
-                        udaje(a, list);
+                        Udaje(a, list);
                         Console.Clear();
                     }
                     break;
@@ -340,7 +276,7 @@ namespace bitva
                 }
             }
         }
-        static void pavuk(List<SuperHrdina> list)//metoda na vygenerovania pavuka
+        static void Pavuk(List<SuperHrdina> list)//metoda na vygenerovania pavuka
         {
             Console.WriteLine("Pavuk:");
             int ratac = 1;
@@ -362,10 +298,32 @@ namespace bitva
                 }
             }
         }
-        static void efektneCarky()
+        static void EfektneCarky()
         {
             Console.WriteLine("_______________________");
             Console.WriteLine("                       ");
+        }
+        static bool NaplnacListov(int i, List<SuperHrdina> ListA, List<SuperHrdina> ListB, int ciselko1, int ciselko2)
+        {
+            ListA[(i * 2) + ciselko1].hp = Utokobrana(ListA[i * 2 + ciselko2].dmg, ListA[(i * 2) + ciselko1].def, ListA[(i * 2) + ciselko1].hp);
+            Console.WriteLine("Prvy udiera " + ListA[i * 2 + ciselko2].meno + " a ubera " + ListA[(i * 2) + ciselko1].meno + " " + dmgc + " dmg");
+            Console.WriteLine(ListA[(i * 2) + ciselko1].meno + " ostava " + Math.Round(ListA[(i * 2) + ciselko1].hp, 3) + " hp");
+            if (ListA[(i * 2) + 1].hp <= 0)
+            {
+                EfektneCarky();
+                Console.WriteLine("Vyhrava " + ListA[i * 2 + ciselko2].meno);
+                EfektneCarky();
+                if (ListA == osemfinale)
+                    stvrtfinale.Add(new SuperHrdina(ListB[i * 2 + ciselko2].meno, ListB[i * 2 + ciselko2].hp, ListB[i * 2 + ciselko2].dmg, ListB[i * 2 + ciselko2].def));
+                if (ListA == stvrtfinale)
+                    semifinale.Add(new SuperHrdina(ListB[i * 2 + ciselko2].meno, ListB[i * 2 + ciselko2].hp, ListB[i * 2 + ciselko2].dmg, ListB[i * 2 + ciselko2].def));
+                if (ListA == semifinale)
+                    finale.Add(new SuperHrdina(ListB[i * 2 + ciselko2].meno, ListB[i * 2 + ciselko2].hp, ListB[i * 2 + ciselko2].dmg, ListB[i * 2 + ciselko2].def));
+                if (ListA == finale)
+                    Console.WriteLine("Celkovym vitazom sa stava: " + ListA[i * 2 + ciselko2].meno);
+                return true;
+            }
+            return false;
         }
     }
 }
